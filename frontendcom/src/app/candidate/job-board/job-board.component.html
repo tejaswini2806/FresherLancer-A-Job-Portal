@@ -1,0 +1,83 @@
+<div class="card">
+    <p-dataView #dv [value]="jobs">
+        <ng-template pTemplate="list" let-job>
+            <div class="grid grid-nogutter">
+                <div class="col-12" *ngFor="let item of job; let first = first" class="col-12">
+                    <div class="flex sm:flex-column sm:align-items-start px-2 gap-2" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                        <div class="flex sm:flex-column sm:align-items-start px-2 gap-2 w-full">
+                            <p class="text-800 text-lg font-medium text-900 p-0 m-0">{{item.title}}</p>   
+                            <p class="font-medium text-secondary text-sm px-1 m-0">{{item.location}}</p> 
+                            <p class="font-medium text-secondary text-sm px-1 m-0">{{item.minSalary | currency}} - {{item.maxSalary | currency}}</p>
+                            <p class="font-medium text-secondary text-sm px-1 m-0">{{item.employmentType}}</p> 
+                            <p class="font-medium text-secondary text-sm px-1 m-0">{{item.experienceLevel}}</p>
+                              
+                            <div class="flex">
+                               
+                            </div>
+                            
+                        </div>
+                        <p-divider class="w-full"></p-divider>
+                        <div class="flex sm:flex-column sm:align-items-end px-2 gap-2 w-full">
+                            <!-- <span class="text-lg font-semibold text-800">Hello</span> -->
+                            <div class="flex flex-row-reverse md:flex-row gap-2">
+                                <p-button (onClick)="showJobDetailsDialog(item)" label="Info" icon="pi pi-info-circle" [rounded]="true" severity="info" [outlined]="true"  class="flex-auto md:flex-initial white-space-nowrap p-0" label="View Details"  size="small" />
+                                <!-- <p-button  [outlined]="true"  class="flex-auto md:flex-initial white-space-nowrap" /> -->
+                                <p-button (onClick)="onApplyCLick($event)" label="Info" [rounded]="true" severity="info" [outlined]="true"  class="flex-auto md:flex-initial white-space-nowrap" label="Apply Now"  size="small" />
+                                <!-- <p-button icon="pi pi-shopping-cart"  class="flex-auto md:flex-initial white-space-nowrap" label="Apply Now" /> -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- <div class="flex sm:flex-row sm:al  ign-items-center px-2 m-0 gap-3" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                        hello
+                    </div> -->
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+</div>
+
+<p-dialog 
+        header="{{selectedJob?.title}}" 
+        [modal]="true"
+        [(visible)]="jobDetailsVisible" 
+        [style]="{ width: '50rem' }"
+        [draggable]="false" 
+        [resizable]="false" 
+        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+            <div class="flex sm:flex-row sm:align-items-start px-2 gap-2 w-full">   
+                <div class="flex sm:flex-column sm:align-items-start px-2 gap-2 w-50">
+                    <p class="font-medium text-secondary text-sm px-1 m-0">{{selectedJob?.location}}</p> 
+                    <p class="font-medium text-secondary text-sm px-1 m-0">{{selectedJob?.minSalary | currency}} - {{selectedJob?.maxSalary | currency}}</p>
+                    <p class="font-medium text-secondary text-sm px-1 m-0">{{selectedJob?.employmentType}}</p> 
+                    <p class="font-medium text-secondary text-sm px-1 m-0">{{selectedJob?.experienceLevel}}</p>
+                    <div class="card flex align-items-center">
+                        <p-chip styleClass="pl-0 pr-3" *ngFor="let skill of selectedJob?.skills; let first = first" class="{{first ? '' : 'ml-3'}}">
+                            <span class="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center">
+                                {{getFirstLetter(skill)}}
+                            </span>
+                            <span class="ml-2 font-light text-sm">
+                                {{skill}}
+                            </span>
+                        </p-chip>
+                    </div>
+                </div>
+                <div class="h-8rem flex align-items-center justify-content-center">
+                    <p-divider layout="vertical" styleClass="hidden md:flex" class="h-full"></p-divider>
+                </div>
+                <div>
+                    <p class="font-medium text-secondary text-sm px-1 mt-3">{{selectedJob?.description}}</p>
+                </div>
+                
+            </div>
+            <p-divider class="w-full"></p-divider>
+            <div class="flex sm:flex-column sm:align-items-end px-2 gap-2 w-full">
+                <!-- <span class="text-lg font-semibold text-800">Hello</span> -->
+                <div class="flex flex-row-reverse md:flex-row gap-2">
+                    <p-button (onClick)="onApplyCLick($event)" label="Info" [rounded]="true" severity="info" [outlined]="true"  class="flex-auto md:flex-initial white-space-nowrap" label="Apply Now"  size="small" />
+                    <!-- <p-button icon="pi pi-shopping-cart"  class="flex-auto md:flex-initial white-space-nowrap" label="Apply Now" /> -->
+                </div>
+            </div>
+</p-dialog>
+
+<p-confirmDialog />

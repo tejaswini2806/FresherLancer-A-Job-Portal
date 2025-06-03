@@ -1,0 +1,40 @@
+<div class="card">
+    <p-menubar [model]="items">
+        <ng-template pTemplate="item" let-item #start>
+            <ng-container *ngIf="item.route; else urlRef">
+                <a [routerLink]="item.route" class="p-menuitem-link">
+                    <span [class]="item.icon"></span>
+                    <span class="ml-2">{{ item.label }}</span>
+                </a>
+            </ng-container>
+            <ng-template #urlRef>
+                <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menuitem-link">
+                    <span [class]="item.icon"></span>
+                    <span class="ml-2">{{ item.label }}</span>
+                </a>
+            </ng-template>
+            <ng-template #noLink>
+                <div class="p-menuitem-link">
+                    <span [class]="item.icon"></span>
+                    <span class="ml-2">{{ item.label }}</span>
+                    <span class="pi pi-fw pi-angle-down ml-2"></span>
+                </div>
+            </ng-template>
+        </ng-template>
+        <ng-template pTemplate="end">
+           <div class="flex gap-2 mr-8">
+                <div class="card flex justify-content-center align-items-center align">
+                    <a class="flex align-items-center p-menubar-item-link"
+                    (click)="menu.toggle($event)">
+                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                        <span class="font-bold text-sm ml-2">{{'DD'}}</span>
+                        <i class="pi pi-angle-down ml-1"></i>
+                    </a>
+                    <p-tieredMenu #menu
+                                [model]="userMenu"
+                                [popup]="true" />
+                </div>  
+            </div>
+        </ng-template>
+    </p-menubar>
+</div>

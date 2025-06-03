@@ -1,0 +1,99 @@
+<div class="card">
+    <p-fieldset legend="Job Applications">
+        <p-table [value]="applications" [columns]="cols" [paginator]="false" [rows]="10">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{ col.header }}
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-rowData>
+                <tr>
+                    <td *ngFor="let col of cols">
+                        <span [ngSwitch]="true">
+                            <span *ngSwitchCase="col.field === 'action'">
+                                <span class="flex">
+                                    <i *ngIf="rowData['statusCode'] == 'APPLIED' " 
+                                        title="Shortlist"
+                                        style="color: royalblue"
+                                       (click)="markAsShortlist(rowData)"
+                                       class="pi pi-paperclip ml-2 cursor-pointer"></i>
+                                    
+                                    <i *ngIf="rowData['statusCode'] == 'SHORTLIST' || rowData['statusCode'] == 'APPLIED' "
+                                       title="Approve"
+                                        style="color: green"
+                                       (click)="onApproveCandidate(rowData)"
+                                       class="pi pi-check-circle ml-3 cursor-pointer"></i>
+
+                                    <i *ngIf="rowData['statusCode'] == 'SHORTLIST' || rowData['statusCode'] == 'APPLIED' "
+                                        title="Reject"
+                                        style="color: tomato"
+                                       (click)="onRejectCandidate(rowData)"
+                                       class="pi pi-user-minus ml-3 cursor-pointer"></i>
+                                    
+                                </span>
+                            </span>
+                            <span *ngSwitchCase="col.field === 'status'">
+                                <span *ngIf="rowData['statusCode'] == 'APPLIED' " class="application-status applied" title="{{rowData[col.field]}}">
+                                    {{rowData[col.field]}}
+                                </span>
+                                <span *ngIf="rowData['statusCode'] == 'ACTIVE' " class="application-status active" title="{{rowData[col.field]}}">
+                                    {{rowData[col.field]}}
+                                </span>
+                                <span *ngIf="rowData['statusCode'] == 'CLOSED' " class="application-status closed" title="{{rowData[col.field]}}">
+                                    {{rowData[col.field]}}
+                                </span>
+                                <span *ngIf="rowData['statusCode'] == 'REJECTED' " class="application-status rejected" title="{{rowData[col.field]}}">
+                                    {{rowData[col.field]}}
+                                </span>
+                                <span *ngIf="rowData['statusCode'] == 'SHORTLIST' " class="application-status shortlist" title="{{rowData[col.field]}}">
+                                    {{rowData[col.field]}}
+                                </span>
+                            </span>
+                            <span *ngSwitchDefault
+                                  title="{{ rowData[col.field] }}">
+                                  {{ rowData[col.field] }}
+                            </span>
+                        </span>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-fieldset>
+</div>
+<!-- <div class="card flex justify-center">
+    <p-dialog header="Edit Candidate" (close)="onClose()" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+        <div class="flex w-full">
+            <form [formGroup]="candidateForm" class="w-full">
+                <div class="formgroup">
+                    <div class="field mt-4">
+                        <p-floatLabel variant="in">
+                            <input pInputText id="firstName" class="w-full" formControlName="firstName" />
+                            <label for="firstName">First Name</label>
+                        </p-floatLabel>
+                    </div>
+                    <div class="field mt-4">
+                        <p-floatLabel variant="in">
+                            <input pInputText id="lastName" class="w-full" formControlName="lastName" />
+                            <label for="lastName">Last Name</label>
+                        </p-floatLabel>
+                    </div>
+                    <div class="field mt-4">
+                        <p-floatLabel variant="in">
+                            <input pInputText id="email" class="w-full" formControlName="email" />
+                            <label for="email">Email</label>
+                        </p-floatLabel>
+                    </div>
+                </div>
+                <div class="flex justify-end gap-2">
+                    <p-button label="Cancel" severity="secondary" (click)="onClose()" 
+                    />
+                    <p-button label="Save" (click)="onSave()" [disabled]="candidateForm.invalid" />
+                </div>
+            </form>
+            
+        </div>
+    </p-dialog>
+</div> -->

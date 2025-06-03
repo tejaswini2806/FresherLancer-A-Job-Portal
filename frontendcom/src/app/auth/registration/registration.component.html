@@ -1,0 +1,41 @@
+
+<div class="registration-container half-width-card mt-8 mx-auto">
+    <p-card header="Registration" styleClass="p-shadow-4" class="">
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <div class="formgroup">
+          <div class="field mt-4">
+            <p-floatLabel variant="in">
+              <input pInputText id="firstName" class="w-full" formControlName="firstName" />
+              <label for="firstName">First Name</label>
+            </p-floatLabel>
+          </div>
+          <div class="field mt-4">
+            <p-floatLabel variant="in">
+              <input pInputText id="lastName" class="w-full" formControlName="lastName" />
+              <label for="lastName">Last Name</label>
+            </p-floatLabel>
+          </div>
+          <div class="field mt-4">
+            <p-floatLabel variant="in">
+              <input pInputText id="email" class="w-full" formControlName="email" />
+              <label for="email">Email</label>
+            </p-floatLabel>
+          </div>
+          
+          <div class="field mt-4">
+            <p-floatLabel variant="in">
+              <input pInputText id="password" class="w-full" formControlName="password" />
+              <label for="password">Password</label>
+            </p-floatLabel>
+          </div>
+          <p-button 
+            type="submit" 
+            label="Submit" 
+            [disabled]="registrationForm.invalid"
+            styleClass="p-button-outlined">
+          </p-button>
+      </div>
+      </form>
+    </p-card>
+  </div>
+    
